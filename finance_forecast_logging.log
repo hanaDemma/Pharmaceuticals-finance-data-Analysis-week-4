@@ -1,3 +1,50 @@
 2025-01-02 10:22:47,627 - INFO - Finding missing values in DataFrame...
 2025-01-02 10:23:34,565 - INFO - Finding missing values in DataFrame...
 2025-01-02 10:24:01,825 - INFO - Finding missing values in DataFrame...
+2025-01-02 10:31:25,821 - INFO - Replacing missing values...
+2025-01-02 10:31:25,829 - INFO - Replacing missing values in column 'Id' with mean: 41088
+2025-01-02 10:31:25,831 - INFO - Replacing missing values in column 'Store' with mean: 1115
+2025-01-02 10:31:25,835 - INFO - Replacing missing values in column 'DayOfWeek' with mean: 7
+2025-01-02 10:31:25,838 - INFO - Replacing missing values in column 'Open' with mean: 1.0
+2025-01-02 10:31:25,840 - INFO - Replacing missing values in column 'Promo' with mean: 1
+2025-01-02 10:31:25,843 - INFO - Replacing missing values in column 'SchoolHoliday' with mean: 1
+2025-01-02 10:31:25,847 - INFO - Replacing missing values in column 'Date' with mode: 2015-08-01
+2025-01-02 10:31:25,853 - INFO - Replacing missing values in column 'StateHoliday' with mode: 0
+2025-01-02 10:35:13,851 - INFO - Finding missing values in DataFrame...
+2025-01-02 10:39:00,440 - INFO - Replacing missing values...
+2025-01-02 10:39:00,446 - INFO - Replacing missing values in column 'Store' with mean: 1115
+2025-01-02 10:39:00,450 - INFO - Replacing missing values in column 'CompetitionDistance' with mean: 75860.0
+2025-01-02 10:39:00,455 - INFO - Replacing missing values in column 'CompetitionOpenSinceMonth' with mean: 12.0
+2025-01-02 10:39:00,460 - INFO - Replacing missing values in column 'CompetitionOpenSinceYear' with mean: 2015.0
+2025-01-02 10:39:00,463 - INFO - Replacing missing values in column 'Promo2' with mean: 1
+2025-01-02 10:39:00,467 - INFO - Replacing missing values in column 'Promo2SinceWeek' with mean: 50.0
+2025-01-02 10:39:00,471 - INFO - Replacing missing values in column 'Promo2SinceYear' with mean: 2015.0
+2025-01-02 10:39:00,474 - INFO - Replacing missing values in column 'StoreType' with mode: a
+2025-01-02 10:39:00,478 - INFO - Replacing missing values in column 'Assortment' with mode: a
+2025-01-02 10:39:00,484 - INFO - Replacing missing values in column 'PromoInterval' with mode: Jan,Apr,Jul,Oct
+2025-01-02 10:39:36,521 - INFO - Finding missing values in DataFrame...
+2025-01-02 11:17:00,344 - INFO - Finding missing values in DataFrame...
+2025-01-02 11:17:00,596 - INFO - Finding missing values in DataFrame...
+2025-01-02 11:17:00,646 - INFO - Finding missing values in DataFrame...
+2025-01-02 11:17:00,715 - INFO - Replacing missing values...
+2025-01-02 11:17:00,727 - INFO - Replacing missing values in column 'Id' with mean: 41088
+2025-01-02 11:17:00,735 - INFO - Replacing missing values in column 'Store' with mean: 1115
+2025-01-02 11:17:00,742 - INFO - Replacing missing values in column 'DayOfWeek' with mean: 7
+2025-01-02 11:17:00,753 - INFO - Replacing missing values in column 'Open' with mean: 1.0
+2025-01-02 11:17:00,763 - INFO - Replacing missing values in column 'Promo' with mean: 1
+2025-01-02 11:17:00,772 - INFO - Replacing missing values in column 'SchoolHoliday' with mean: 1
+2025-01-02 11:17:00,786 - INFO - Replacing missing values in column 'Date' with mode: 2015-08-01
+2025-01-02 11:17:00,814 - INFO - Replacing missing values in column 'StateHoliday' with mode: 0
+2025-01-02 11:17:00,849 - INFO - Finding missing values in DataFrame...
+2025-01-02 11:17:00,903 - INFO - Replacing missing values...
+2025-01-02 11:17:00,914 - INFO - Replacing missing values in column 'Store' with mean: 1115
+2025-01-02 11:17:00,924 - INFO - Replacing missing values in column 'CompetitionDistance' with mean: 75860.0
+2025-01-02 11:17:00,933 - INFO - Replacing missing values in column 'CompetitionOpenSinceMonth' with mean: 12.0
+2025-01-02 11:17:00,942 - INFO - Replacing missing values in column 'CompetitionOpenSinceYear' with mean: 2015.0
+2025-01-02 11:17:00,948 - INFO - Replacing missing values in column 'Promo2' with mean: 1
+2025-01-02 11:17:00,954 - INFO - Replacing missing values in column 'Promo2SinceWeek' with mean: 50.0
+2025-01-02 11:17:00,960 - INFO - Replacing missing values in column 'Promo2SinceYear' with mean: 2015.0
+2025-01-02 11:17:00,968 - INFO - Replacing missing values in column 'StoreType' with mode: a
+2025-01-02 11:17:00,975 - INFO - Replacing missing values in column 'Assortment' with mode: a
+2025-01-02 11:17:00,981 - INFO - Replacing missing values in column 'PromoInterval' with mode: Jan,Apr,Jul,Oct
+2025-01-02 11:17:01,006 - INFO - Finding missing values in DataFrame...
