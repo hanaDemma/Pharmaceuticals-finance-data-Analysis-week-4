@@ -398,3 +398,23 @@ def effectAssortmentTypeOnSales(monthly_effect_assortment_type):
     plt.ylabel('Average Sales')
     plt.legend(title='Store Type')
     plt.show()
+
+
+def effectCompetitionDistanceOnSales(merged_train_data_store):
+    logger.info("Analyzing the effect of competition distance on sales.")
+    # Define the desired interval boundaries
+    intervals = [0, 5000, 10000, 15000, 20000, 75860.0]
+    # Create a new column for the intervals
+    merged_train_data_store['CompetitionDistanceInterval'] = pd.cut(merged_train_data_store['CompetitionDistance'], bins=intervals)
+
+    # Group by the interval and calculate mean sales
+    interval_sales = merged_train_data_store.groupby('CompetitionDistanceInterval')['Sales'].mean()
+
+    # Plot the results
+    plt.figure(figsize=(10, 6))
+    interval_sales.plot(kind='bar')
+    plt.title('Average Sales by Competition Distance Interval')
+    plt.xlabel('Competition Distance Interval')
+    plt.ylabel('Average Sales')
+    plt.xticks(rotation=45)
+    plt.show()
