@@ -137,3 +137,23 @@ def plotEffectOfHolidayOnSales(holiday_sales_behavior):
         plt.show()
     else:
         print("No holiday sales data to plot.")
+
+
+
+def salesOverTime(merged_train_data_store):
+    logger.info("Plotting sales over time by different timeframes.")
+    for column in ['D','W','M','Y']:
+        over_time_sales = merged_train_data_store['Sales'].resample(column).sum()
+        plt.figure(figsize=(15, 7))
+        plt.plot(over_time_sales.index, over_time_sales)
+        if column =='D':
+            plt.title('Daily Sales Over Time')
+        elif column =='W':
+            plt.title('Weekly Sales Over Time')
+        elif column =='M':
+            plt.title('Monthly Sales Over Time')
+        else:
+            plt.title('Yearly Sales Over Time')
+        plt.xlabel('Date')
+        plt.ylabel('Sales')
+        plt.show()
