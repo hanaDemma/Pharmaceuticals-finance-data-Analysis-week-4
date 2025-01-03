@@ -1,7 +1,7 @@
 # Pharmaceuticals Finance Data Analysis - Week 4
 
 **Project Overview:**
-This project aims to forecast sales across multiple stores in various cities six weeks in advance. The analysis will provide insights into customer purchasing behavior and the impact of promotions, store openings, and other factors on sales.
+This project focuses on forecasting sales across multiple stores in various cities six weeks in advance. The objective is to analyze customer purchasing behavior and evaluate the impact of factors such as promotions, store openings, and other key metrics on sales.
 
 ## Setup Environment
 The initial step is to set up a Python development environment, integrate version control, and configure CI/CD workflows for continuous integration and deployment.
@@ -22,28 +22,32 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
 └── requirements.txt 
 
 ## Deliverables
-- Python environment setup.
-- GitHub repository with proper branches and version control.
-- CI/CD workflows configured under  .github/workflows/.
+- Python Environment Setup: A fully configured development environment with all necessary libraries and tools.
+- GitHub Repository: Includes appropriate branches for collaboration and version control.
+- CI/CD Workflows: Configuration files under .github/workflows/ for continuous integration and deployment.
 
  ## Exploration of Customer Purchasing Behavior
  ## Objective
-    To analyze how factors like promotions, new store openings, and other measures influence customer purchasing behavior.
+    - Analyze how key factors, such as promotions, new store openings, and other operational measures, influence customer purchasing behavior.
 ## Tasks
-- Create a GitHub repository and set up branch task-1.
-- Perform exploratory data analysis (EDA) on the dataset.
-- Log steps using the logger library in Python for traceability and reproducibility.
-- Commit work at least three times a day with clear messages.
+- Set up a GitHub repository with a dedicated task-1 branch.
+- Perform Exploratory Data Analysis (EDA) using Jupyter Notebook (exploratory_analysis.ipynb).
+- Implement logging with Python's logging library to ensure traceability and reproducibility of the analysis steps.
+- Commit progress at least three times daily, with descriptive and clear commit messages.
 
 ## Dependencies
-The project requires the following Python libraries:
-- pandas
-- seaborn
-- scikit-learn
-- matplotlib
-- Logging
+This project relies on the following Python libraries:
+
+- pandas: Data manipulation and analysis.
+- seaborn: Data visualization.
+- scikit-learn: Machine learning tools.
+- matplotlib: Plotting and visualization.
+- logging: Tracking and documenting process flows.
+
 ## Contribution Guidelines
-1. Fork the repository.
-2. Create a new feature branch (feature-your-feature).
-3. Commit your changes and push to your branch.
-4. Open a pull request and describe the changes in detail.
+1. Fork the Repository: Clone the main repository to your GitHub account.
+2. Create a Feature Branch: Name the branch using the format feature/your-feature.
+3. Make Changes: Implement your feature or changes.
+4. Commit Regularly: Use clear and descriptive commit messages.
+5. Push Your Branch: Push your feature branch to the remote repository.
+6. Open a Pull Request (PR): Submit a PR with a detailed description of your changes for review.
