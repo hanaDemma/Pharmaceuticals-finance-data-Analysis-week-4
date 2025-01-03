@@ -157,3 +157,26 @@ def salesOverTime(merged_train_data_store):
         plt.xlabel('Date')
         plt.ylabel('Sales')
         plt.show()
+
+
+
+def salesSeasonalDecompose(merged_train_data_store):
+    logger.info("Decomposing sales seasonality.")
+    monthly_sales = merged_train_data_store['Sales'].resample('M').sum()
+    result = seasonal_decompose(monthly_sales, model='additive')
+    fig = result.plot()
+    fig.set_size_inches(10, 5)  
+
+    plt.tight_layout() 
+    plt.show()
+
+
+def averageSalesDayOfWeek(merged_train_data_store):
+    logger.info("Calculating average sales by day of the week.")
+    merged_train_data_store['DayOfWeek'] = merged_train_data_store.index.dayofweek
+    day_of_week_sales = merged_train_data_store.groupby('DayOfWeek')['Sales'].mean()
+    day_of_week_sales.plot(kind='bar', figsize=(10, 6))
+    plt.title('Average Sales by Day of Week')
+    plt.xlabel('Day of Week (0=Monday, 6=Sunday)')
+    plt.ylabel('Average Sales')
+    plt.show()
