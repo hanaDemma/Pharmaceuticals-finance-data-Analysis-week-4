@@ -236,3 +236,14 @@ def promotionEffectSales(monthly_promo_sales):
     plt.ylabel('Average Sales')
     plt.legend(['No Promo', 'Promo'])
     plt.show()
+
+def storeTypePerformanceOverTime(merged_train_data_store):
+    logger.info("Analyzing store type performance over time.")
+    store_type_sales = merged_train_data_store.groupby([merged_train_data_store.index.to_period('M'), 'StoreType'])['Sales'].mean().unstack()
+    store_type_sales.plot(figsize=(15, 7))
+    plt.title('Monthly Average Sales by Store Type')
+    plt.xlabel('Date')
+    plt.ylabel('Average Sales')
+    plt.legend(title='Store Type')
+    plt.show()
+    return store_type_sales
