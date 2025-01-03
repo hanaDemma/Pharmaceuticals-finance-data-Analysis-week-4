@@ -1,9 +1,10 @@
-# Pharmaceuticals-finance-data-Analysis-week-4
+# Pharmaceuticals Finance Data Analysis - Week 4
 
 **Project Overview:**
-This project aims to forecast sales in all  stores across several cities six weeks ahead of time.
+This project aims to forecast sales across multiple stores in various cities six weeks in advance. The analysis will provide insights into customer purchasing behavior and the impact of promotions, store openings, and other factors on sales.
+
 ## Setup Environment
-The first step is to set up a Python development environment with version control and implement CI/CD workflows for continuous integration and deployment.
+The initial step is to set up a Python development environment, integrate version control, and configure CI/CD workflows for continuous integration and deployment.
 ## Folder Structure 
 
 PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/ 
@@ -22,13 +23,12 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
 
 ## Deliverables
 - Python environment setup.
-- GitHub repository with branches and version control.
-- CI/CD workflows configured in .github/workflows/.
+- GitHub repository with proper branches and version control.
+- CI/CD workflows configured under  .github/workflows/.
 
- ## Exploration of customer purchasing behavior
+ ## Exploration of Customer Purchasing Behavior
  ## Objective
- The goal is to check how some measures such as promos and the opening of new stores affect purchasing behavior. 
-
+    To analyze how factors like promotions, new store openings, and other measures influence customer purchasing behavior.
 ## Tasks
 - Create a GitHub repository and set up branch task-1.
 - Perform exploratory data analysis (EDA) on the dataset.
@@ -36,7 +36,7 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
 - Commit work at least three times a day with clear messages.
 
 ## Dependencies
-To ensure the project runs smoothly, the following libraries are required:
+The project requires the following Python libraries:
 - pandas
 - seaborn
 - scikit-learn
@@ -44,7 +44,7 @@ To ensure the project runs smoothly, the following libraries are required:
 - Logging
 
 ## Contribution Guidelines
-- Fork the repository.
-- Create a new feature branch (feature-your-feature).
-- Commit your changes and push to your branch.
-- Open a pull request and describe the changes in detail.
+1. Fork the repository.
+2. Create a new feature branch (feature-your-feature).
+3. Commit your changes and push to your branch.
+4. Open a pull request and describe the changes in detail.
