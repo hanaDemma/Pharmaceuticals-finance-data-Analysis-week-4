@@ -269,3 +269,41 @@ def numberOfCustomerWithSales(merged_train_data_store):
     plt.xlabel('Number of Customers')
     plt.ylabel('Sales')
     plt.show()
+
+def corrSalesByDayOfWeekAndMonth(merged_train_data_store):
+    logger.info("Creating a heatmap for average sales by day of the week and month.")
+    merged_train_data_store['DayOfWeek'] = merged_train_data_store.index.dayofweek
+    merged_train_data_store['Month'] = merged_train_data_store.index.month
+    sales_heatmap = merged_train_data_store.pivot_table(values='Sales', index='DayOfWeek', columns='Month', aggfunc='mean')
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(sales_heatmap, cmap='coolwarm', annot=True, fmt='.0f')
+    plt.title('Average Sales by Day of Week and Month')
+    plt.xlabel('Month')
+    plt.ylabel('Day of Week (0=Monday, 6=Sunday)')
+    plt.show()
+
+def corrSalesAndCustomers(merged_train_data_store):
+    """
+    Calculates and visualizes the correlation between Sales and Customers.
+
+    Args:
+        merged_train_data_store: A pandas DataFrame containing 'Sales' and 'Customers' columns.
+
+    Returns:
+        None. Displays the correlation heatmap.
+    """
+    logger.info("Calculating and plotting correlation between Sales and Customers.")
+    
+    # Check if required columns exist
+    if 'Sales' not in merged_train_data_store.columns or 'Customers' not in merged_train_data_store.columns:
+        logger.error("Columns 'Sales' and 'Customers' must be present in the dataset.")
+        return
+    
+    # Calculate correlation
+    correlation_matrix = merged_train_data_store[['Sales', 'Customers']].corr()
+    
+    # Plot heatmap
+    plt.figure(figsize=(6, 4))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', cbar=True)
+    plt.title('Correlation Between Sales and Customers')
+    plt.show()
