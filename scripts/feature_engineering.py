@@ -180,3 +180,13 @@ def averageSalesDayOfWeek(merged_train_data_store):
     plt.xlabel('Day of Week (0=Monday, 6=Sunday)')
     plt.ylabel('Average Sales')
     plt.show()
+
+
+def salesWithOpenAndClose(monthly_open_store):
+    logger.info("Plotting monthly sales: Open vs Not Open.")
+    monthly_open_store[[0, 1]].plot(figsize=(15, 7))
+    plt.title('Monthly Average Sales: Open vs Not Open')
+    plt.xlabel('Date')
+    plt.ylabel('Average Sales')
+    plt.legend(['Not Open', 'Open'])
+    plt.show()
