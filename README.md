@@ -42,7 +42,6 @@ The project requires the following Python libraries:
 - scikit-learn
 - matplotlib
 - Logging
-
 ## Contribution Guidelines
 1. Fork the repository.
 2. Create a new feature branch (feature-your-feature).
