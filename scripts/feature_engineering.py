@@ -307,3 +307,14 @@ def corrSalesAndCustomers(merged_train_data_store):
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', cbar=True)
     plt.title('Correlation Between Sales and Customers')
     plt.show()
+
+
+def dailySalesGrowthRate(merged_train_data_store):
+    logger.info("Plotting daily sales growth rate.")
+    merged_train_data_store['SalesGrowthRate'] = merged_train_data_store['Sales'].pct_change()
+    plt.figure(figsize=(15, 7))
+    plt.plot(merged_train_data_store.index, merged_train_data_store['SalesGrowthRate'])
+    plt.title('Daily Sales Growth Rate')
+    plt.xlabel('Date')
+    plt.ylabel('Growth Rate')
+    plt.show()
