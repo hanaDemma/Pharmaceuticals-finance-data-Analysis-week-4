@@ -205,3 +205,25 @@ def customerBehaviorStoreOpen(train_data):
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+
+def customerBehaviorStoreNotOpen(train_data):
+    logger.info("Analyzing customer behavior for stores that are not open.")
+    train_data['Date'] = pd.to_datetime(train_data['Date'])
+
+
+    train_data['Month'] = train_data['Date'].dt.month
+
+    open_data = train_data[train_data['Open'] == 0]
+
+    monthly_customers = open_data.groupby('Month')['Customers'].mean()
+
+    plt.figure(figsize=(12, 6))
+    plt.plot(monthly_customers.index, monthly_customers.values, marker='o', linestyle='-', color='b')
+    plt.title('Average Number of Customers by Month')
+    plt.xlabel('Month')
+    plt.ylabel('Average Number of Customers')
+    plt.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])  # Month names
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
