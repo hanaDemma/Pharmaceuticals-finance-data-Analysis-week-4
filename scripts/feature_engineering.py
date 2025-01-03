@@ -247,3 +247,15 @@ def storeTypePerformanceOverTime(merged_train_data_store):
     plt.legend(title='Store Type')
     plt.show()
     return store_type_sales
+
+
+def storeTypeAndPromoOverTime(merged_store_type_prome):
+    logger.info("Plotting performance by store type and promotion over time.")
+    merged_store_type_prome.plot(figsize=(15, 7))
+    plt.title('Monthly Average Sales by Store Type and Promotion')
+    plt.xlabel('Date')
+    plt.ylabel('Average Sales')
+    plt.legend(title='Store Type')
+    plt.legend(['No Promo', 'Promo','Store A', 'Store B', 'Store C', 'Store D'])
+
+    plt.show()
