@@ -318,3 +318,35 @@ def dailySalesGrowthRate(merged_train_data_store):
     plt.xlabel('Date')
     plt.ylabel('Growth Rate')
     plt.show()
+
+
+def categorize_month(month):
+    # logger.info(f"Categorizing month {month}.")
+    if month in [12, 1, 2]:
+        return 'Winter'
+    elif month in [3, 4, 5]:
+        return 'Spring'
+    elif month in [6, 7, 8]:
+        return 'Summer'
+    else:
+        return 'Fall'
+    
+def customerBehaviorStoreOpenSeasonal(train_data):
+    logger.info("Analyzing customer behavior by season for stores that are open.")
+    train_data['Season'] = train_data['Month'].apply(categorize_month)
+
+    # Filter to include only open stores
+    open_data = train_data[train_data['Open'] == 1]
+
+    # Group by season and calculate average number of customers
+    seasonal_customers = open_data.groupby('Season')['Customers'].mean()
+
+    # Plot the results
+    plt.figure(figsize=(12, 6))
+    seasonal_customers.plot(kind='bar', color='b')
+    plt.title('Average Number of Customers by Season')
+    plt.xlabel('Season')
+    plt.ylabel('Average Number of Customers')
+    plt.grid(True, axis='y')
+    plt.tight_layout()
+    plt.show()
