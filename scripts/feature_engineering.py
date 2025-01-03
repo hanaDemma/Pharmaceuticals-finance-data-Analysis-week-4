@@ -259,3 +259,13 @@ def storeTypeAndPromoOverTime(merged_store_type_prome):
     plt.legend(['No Promo', 'Promo','Store A', 'Store B', 'Store C', 'Store D'])
 
     plt.show()
+
+def numberOfCustomerWithSales(merged_train_data_store):
+    logger.info("Plotting the relationship between number of customers and sales over time.")
+    plt.figure(figsize=(12, 8))
+    scatter = plt.scatter(merged_train_data_store['Customers'], merged_train_data_store['Sales'], c=merged_train_data_store.index, cmap='viridis')
+    plt.colorbar(scatter, label='Date')
+    plt.title('Sales vs Customers Over Time ')
+    plt.xlabel('Number of Customers')
+    plt.ylabel('Sales')
+    plt.show()
