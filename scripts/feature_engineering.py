@@ -227,3 +227,12 @@ def customerBehaviorStoreNotOpen(train_data):
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+def promotionEffectSales(monthly_promo_sales):
+    logger.info("Plotting effect of promotions on monthly average sales.")
+    monthly_promo_sales[[0, 1]].plot(figsize=(15, 7))
+    plt.title('Monthly Average Sales: Promo vs No Promo')
+    plt.xlabel('Date')
+    plt.ylabel('Average Sales')
+    plt.legend(['No Promo', 'Promo'])
+    plt.show()
