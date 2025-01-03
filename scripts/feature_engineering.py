@@ -190,3 +190,18 @@ def salesWithOpenAndClose(monthly_open_store):
     plt.ylabel('Average Sales')
     plt.legend(['Not Open', 'Open'])
     plt.show()
+
+
+def customerBehaviorStoreOpen(train_data):
+    logger.info("Analyzing customer behavior for stores that are open.")
+    open_data = train_data[train_data['Open'] == 1]
+    monthly_customers = open_data.groupby('Month')['Customers'].mean()
+    plt.figure(figsize=(12, 6))
+    plt.plot(monthly_customers.index, monthly_customers.values, marker='o', linestyle='-', color='b')
+    plt.title('Average Number of Customers by Month')
+    plt.xlabel('Month')
+    plt.ylabel('Average Number of Customers')
+    plt.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])  # Month names
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
