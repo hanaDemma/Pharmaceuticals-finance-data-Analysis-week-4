@@ -68,3 +68,72 @@ def distribution_promotions_in_both_datasets(merged_train_data_store,merged_test
     plt.legend()
 
     plt.show()
+
+def label_holiday_periods(row, holiday_type):
+    # logger.info(f"Labeling holiday periods for {holiday_type}.")
+    if row['StateHoliday'] == holiday_type:
+        return 'During ' + holiday_type
+    else:
+        return 'Regular'
+
+def categorizeEachDayBasedonHolidayType(train_data):
+    logger.info("Categorizing each day based on holiday type.")
+    for holiday in ['Public Holiday', 'Easter Holiday', 'Christmas']:
+        # Apply the holiday categorization
+        train_data[f'HolidayPeriod_{holiday}'] = train_data.apply(lambda row: label_holiday_periods(row, holiday), axis=1)
+        
+        # Create columns to indicate "Before" and "After" holiday periods, adding checks to ensure we have data
+        train_data[f'AfterHoliday_{holiday}'] = train_data[f'HolidayPeriod_{holiday}'].shift(-1) == f'During {holiday}'
+        train_data[f'BeforeHoliday_{holiday}'] = train_data[f'HolidayPeriod_{holiday}'].shift(1) == f'During {holiday}'
+        
+        # Initialize with "Regular" and then adjust for "Before" and "After" periods
+        train_data[f'SalesPeriod_{holiday}'] = 'Regular'
+        train_data.loc[train_data[f'BeforeHoliday_{holiday}'], f'SalesPeriod_{holiday}'] = f'Before {holiday}'
+        train_data.loc[train_data[f'HolidayPeriod_{holiday}'] == f'During {holiday}', f'SalesPeriod_{holiday}'] = f'During {holiday}'
+        train_data.loc[train_data[f'AfterHoliday_{holiday}'], f'SalesPeriod_{holiday}'] = f'After {holiday}'
+    return train_data
+
+def calculateAverageSalesDuringDifferentPeriods(train_data):
+    logger.info("Calculating average sales during different periods.")
+    # Check if there are sales during holidays; if empty, no need to plot
+    holiday_sales_behavior = pd.DataFrame()
+    for holiday in ['Public Holiday', 'Easter Holiday', 'Christmas']:
+        # Filter out only the relevant holiday sales periods
+        filtered_sales = train_data[train_data[f'SalesPeriod_{holiday}'] != 'Regular']
+        
+        # Ensure there's data before proceeding with analysis
+        if not filtered_sales.empty:
+            # Calculate average sales during different periods (Before, During, After)
+            sales_behavior = filtered_sales.groupby(f'SalesPeriod_{holiday}')['Sales'].mean()
+            sales_behavior.name = holiday
+            holiday_sales_behavior = pd.concat([holiday_sales_behavior, sales_behavior], axis=1)
+        else:
+            print(f"No data found for {holiday}, skipping...")
+
+    order = [
+        'Before Public Holiday', 'During Public Holiday', 'After Public Holiday',
+        'Before Easter Holiday', 'During Easter Holiday', 'After Easter Holiday',
+        'Before Christmas', 'During Christmas', 'After Christmas'
+    ]
+
+    # Reindex the holiday_sales_behavior DataFrame to follow the desired order
+    holiday_sales_behavior = holiday_sales_behavior.reindex(order)
+    return holiday_sales_behavior
+
+
+def plotEffectOfHolidayOnSales(holiday_sales_behavior):
+    logger.info("Plotting the effect of holidays on sales.")
+    if not holiday_sales_behavior.empty:
+        holiday_sales_behavior.plot(kind='bar', figsize=(14, 7), colormap='plasma')
+        
+        # Add labels and title
+        plt.title('Sales Behavior Before, During, and After Different Holidays')
+        plt.ylabel('Average Sales')
+        plt.xlabel('Holiday Period')
+        plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for readability
+        plt.tight_layout()
+        
+        # Show plot
+        plt.show()
+    else:
+        print("No holiday sales data to plot.")
