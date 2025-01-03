@@ -32,7 +32,7 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
 ## Tasks
 - Create a GitHub repository and set up branch task-1.
 - Perform exploratory data analysis (EDA) on the dataset.
-- Log your steps using the logger library in Python for traceability and reproducibility.
+- Log steps using the logger library in Python for traceability and reproducibility.
 - Commit work at least three times a day with clear messages.
 
 ## Dependencies
