@@ -350,3 +350,41 @@ def customerBehaviorStoreOpenSeasonal(train_data):
     plt.grid(True, axis='y')
     plt.tight_layout()
     plt.show()
+
+def numberStateHolidayAndNotHoliday(merged_train_data_store):
+    logger.info("Plotting distribution of State Holidays.")
+    plt.figure(figsize=(8, 6))
+    merged_train_data_store['StateHoliday'].value_counts().plot(kind='bar')
+    plt.title('Distribution of state Holiday')
+    plt.ylabel("Count")
+    # plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
+    plt.show()
+
+def numberSchoolHolidayAndNotHoliday(merged_train_data_store):
+    logger.info("Plotting distribution of School Holidays.")
+    plt.figure(figsize=(8, 6))
+    merged_train_data_store['SchoolHoliday'].value_counts().plot(kind='bar')
+    plt.title('Distribution of School Holiday')
+    plt.xlabel('Is Holiday')
+    plt.ylabel('Count')
+    plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
+    plt.show()
+
+
+def averageSalesOnStateHoliday(merged_train_data_store):
+    logger.info("Plotting average sales on State Holidays vs Non-Holidays.")
+    holiday_effect = merged_train_data_store.groupby('StateHoliday')['Sales'].mean()
+    holiday_effect.plot(kind='bar', figsize=(10, 6))
+    plt.title('Average Sales: State Holiday vs Non-Holiday')
+    plt.ylabel('Average Sales')
+    # plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
+    plt.show()
+
+def averageSalesOnSchoolHoliday(merged_train_data_store):
+    logger.info("Plotting average sales on School Holidays vs Non-Holidays.")
+    holiday_effect = merged_train_data_store.groupby('SchoolHoliday')['Sales'].mean()
+    holiday_effect.plot(kind='bar', figsize=(10, 6))
+    plt.title('Average Sales: School Holiday vs Non-Holiday')
+    plt.ylabel('Average Sales')
+    plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
+    plt.show()
