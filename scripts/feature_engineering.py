@@ -388,3 +388,13 @@ def averageSalesOnSchoolHoliday(merged_train_data_store):
     plt.ylabel('Average Sales')
     plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
     plt.show()
+
+
+def effectAssortmentTypeOnSales(monthly_effect_assortment_type):
+    logger.info("Analyzing the effect of assortment type on monthly average sales.")
+    monthly_effect_assortment_type.plot(figsize=(15, 7))
+    plt.title('Monthly Average Sales by Store Type')
+    plt.xlabel('Date')
+    plt.ylabel('Average Sales')
+    plt.legend(title='Store Type')
+    plt.show()
