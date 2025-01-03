@@ -418,3 +418,81 @@ def effectCompetitionDistanceOnSales(merged_train_data_store):
     plt.ylabel('Average Sales')
     plt.xticks(rotation=45)
     plt.show()
+
+
+
+def storesOpenAllWeekdays(merged_train_data_store):
+    logger.info("Analyzing stores open on all weekdays.")
+    merged_train_data_store['Date'] = pd.to_datetime(merged_train_data_store['Date'])
+
+    open_data = merged_train_data_store[merged_train_data_store['Open'] == 1]
+
+    weekday_open_data = open_data[open_data['DayOfWeek'].isin([0, 1, 2, 3, 4])]
+
+    stores_open_days = weekday_open_data.groupby(['Store', 'StoreType'])['DayOfWeek'].nunique().reset_index()
+    stores_open_days['IsOpenAllWeekdays'] = stores_open_days['DayOfWeek'] == 5
+    stores_open_all_weekdays = stores_open_days[stores_open_days['IsOpenAllWeekdays'] == True]
+    stores_not_open_all_weekdays = stores_open_days[stores_open_days['IsOpenAllWeekdays'] == False]
+    open_all_weekdays_by_type = stores_open_all_weekdays.groupby('StoreType').size()
+    not_open_all_weekdays_by_type = stores_not_open_all_weekdays.groupby('StoreType').size()
+
+    print("Stores Open on All Weekdays by StoreType:")
+    print(open_all_weekdays_by_type)
+
+    print("\nStores NOT Open on All Weekdays by StoreType:")
+    print(not_open_all_weekdays_by_type)
+
+    open_weekday_summary = pd.DataFrame({
+    'OpenAllWeekdays': open_all_weekdays_by_type,
+    'NotOpenAllWeekdays': not_open_all_weekdays_by_type
+    }).fillna(0) 
+    open_weekday_summary = open_weekday_summary.reset_index()
+
+    plt.figure(figsize=(12, 6))
+
+    open_weekday_summary.set_index('StoreType')[['OpenAllWeekdays', 'NotOpenAllWeekdays']].plot(
+        kind='bar', stacked=True, color=['#34a853', '#ea4335'], alpha=0.9, edgecolor='k')
+
+    plt.title('Stores Open All Weekdays vs. Not Open All Weekdays by StoreType', fontsize=14)
+    plt.xlabel('Store Type', fontsize=12)
+    plt.ylabel('Number of Stores', fontsize=12)
+    plt.xticks(rotation=0)
+    plt.legend(['Open All Weekdays', 'Not Open All Weekdays'], loc='upper right')
+    plt.tight_layout()
+
+    # Show plot
+    plt.show()
+
+
+
+def storesOpenWeekdayOpenWeekends(merged_train_data_store):
+    logger.info('Starting storesOpenWeekdayOpenWeekends function')
+    open_data = merged_train_data_store[merged_train_data_store['Open'] == 1]
+    logger.info(f'Filtered open stores: {len(open_data)} entries')
+
+    weekday_data = open_data[open_data['DayOfWeek'].isin([0, 1, 2, 3, 4])]  
+    stores_open_weekdays = weekday_data.groupby('Store')['DayOfWeek'].nunique()
+    stores_open_all_weekdays = stores_open_weekdays[stores_open_weekdays == 5].index
+    logger.info(f'Number of stores open all weekdays: {len(stores_open_all_weekdays)}')
+
+    weekend_data = merged_train_data_store[merged_train_data_store['DayOfWeek'].isin([5, 6])]  
+    weekend_sales_open_all_weekdays = weekend_data[weekend_data['Store'].isin(stores_open_all_weekdays)].groupby('Store')['Sales'].mean()
+    weekend_sales_not_open_all_weekdays = weekend_data[~weekend_data['Store'].isin(stores_open_all_weekdays)].groupby('Store')['Sales'].mean()
+    
+    logger.info(f'Average weekend sales for stores open all weekdays: {weekend_sales_open_all_weekdays.mean()}')
+    logger.info(f'Average weekend sales for stores NOT open all weekdays: {weekend_sales_not_open_all_weekdays.mean()}')
+
+    comparison_df = pd.DataFrame({
+        'Stores Open All Weekdays': [weekend_sales_open_all_weekdays.mean()],
+        'Stores Not Open All Weekdays': [weekend_sales_not_open_all_weekdays.mean()]
+    })
+
+    plt.figure(figsize=(8, 5))
+    sns.barplot(data=comparison_df, palette='coolwarm')
+    plt.title('Comparison of Weekend Sales: Stores Open All Weekdays vs. Not Open All Weekdays', fontsize=14)
+    plt.ylabel('Average Weekend Sales')
+    plt.xlabel('Store Type')
+    plt.tight_layout()
+    plt.show()
+
+    logger.info('Completed storesOpenWeekdayOpenWeekends function')
