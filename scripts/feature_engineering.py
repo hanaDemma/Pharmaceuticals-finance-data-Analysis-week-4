@@ -620,3 +620,17 @@ def storesOpenWeekdayOpenWeekends(merged_train_data_store):
     plt.show()
 
     logger.info('Completed storesOpenWeekdayOpenWeekends function')
+
+    
+def customer_behavior_analysis(df):
+    """Analyze customer behavior in relation to sales."""
+    logger.info("Analyzing customer behavior...")
+    
+    plt.figure(figsize=(10, 5))
+    sns.scatterplot(x='Customers', y='Sales', data=df)
+    plt.title('Sales vs Number of Customers')
+    plt.xlabel('Number of Customers')
+    plt.ylabel('Sales')
+    plt.show()
+    
+    logger.info("Customer behavior analysis completed.")
