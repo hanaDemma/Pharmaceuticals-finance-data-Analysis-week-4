@@ -47,22 +47,22 @@ def month_period(day):
     
 
 def distribution_promotions_in_both_datasets(merged_train_data_store,merged_test_data_store):
+    """
+    Compare the Promo distribution between train and test datasets and visualize.
+    """
     logger.info("Comparing Promo distribution between train and test datasets.")
     train_promo_dist = merged_train_data_store['Promo'].value_counts(normalize=True) * 100
     test_promo_dist = merged_test_data_store['Promo'].value_counts(normalize=True) * 100
 
-    # Create a DataFrame to compare the distributions
+   
     promo_comparison = pd.DataFrame({
         'Train': train_promo_dist,
         'Test': test_promo_dist
     }).transpose()
-
-    # Plot the distributions
     plt.figure(figsize=(10, 6))
     sns.barplot(x=promo_comparison.columns, y=promo_comparison.loc['Train'], color='purple', label='Train')
     sns.barplot(x=promo_comparison.columns, y=promo_comparison.loc['Test'], color='red',alpha=0.3, label='Test')
 
-    # Add labels and title
     plt.title('Comparison of Promo Distribution in Training and Test Sets')
     plt.ylabel('Percentage of Promo Days')
     plt.legend()
@@ -70,7 +70,6 @@ def distribution_promotions_in_both_datasets(merged_train_data_store,merged_test
     plt.show()
 
 def label_holiday_periods(row, holiday_type):
-    # logger.info(f"Labeling holiday periods for {holiday_type}.")
     if row['StateHoliday'] == holiday_type:
         return 'During ' + holiday_type
     else:
@@ -79,14 +78,11 @@ def label_holiday_periods(row, holiday_type):
 def categorizeEachDayBasedonHolidayType(train_data):
     logger.info("Categorizing each day based on holiday type.")
     for holiday in ['Public Holiday', 'Easter Holiday', 'Christmas']:
-        # Apply the holiday categorization
+      
         train_data[f'HolidayPeriod_{holiday}'] = train_data.apply(lambda row: label_holiday_periods(row, holiday), axis=1)
         
-        # Create columns to indicate "Before" and "After" holiday periods, adding checks to ensure we have data
         train_data[f'AfterHoliday_{holiday}'] = train_data[f'HolidayPeriod_{holiday}'].shift(-1) == f'During {holiday}'
         train_data[f'BeforeHoliday_{holiday}'] = train_data[f'HolidayPeriod_{holiday}'].shift(1) == f'During {holiday}'
-        
-        # Initialize with "Regular" and then adjust for "Before" and "After" periods
         train_data[f'SalesPeriod_{holiday}'] = 'Regular'
         train_data.loc[train_data[f'BeforeHoliday_{holiday}'], f'SalesPeriod_{holiday}'] = f'Before {holiday}'
         train_data.loc[train_data[f'HolidayPeriod_{holiday}'] == f'During {holiday}', f'SalesPeriod_{holiday}'] = f'During {holiday}'
@@ -94,16 +90,17 @@ def categorizeEachDayBasedonHolidayType(train_data):
     return train_data
 
 def calculateAverageSalesDuringDifferentPeriods(train_data):
+    """
+    Calculate average sales during different periods (Before, During, After) for holidays.
+    """
     logger.info("Calculating average sales during different periods.")
-    # Check if there are sales during holidays; if empty, no need to plot
+
     holiday_sales_behavior = pd.DataFrame()
     for holiday in ['Public Holiday', 'Easter Holiday', 'Christmas']:
-        # Filter out only the relevant holiday sales periods
         filtered_sales = train_data[train_data[f'SalesPeriod_{holiday}'] != 'Regular']
         
-        # Ensure there's data before proceeding with analysis
+
         if not filtered_sales.empty:
-            # Calculate average sales during different periods (Before, During, After)
             sales_behavior = filtered_sales.groupby(f'SalesPeriod_{holiday}')['Sales'].mean()
             sales_behavior.name = holiday
             holiday_sales_behavior = pd.concat([holiday_sales_behavior, sales_behavior], axis=1)
@@ -115,25 +112,29 @@ def calculateAverageSalesDuringDifferentPeriods(train_data):
         'Before Easter Holiday', 'During Easter Holiday', 'After Easter Holiday',
         'Before Christmas', 'During Christmas', 'After Christmas'
     ]
-
-    # Reindex the holiday_sales_behavior DataFrame to follow the desired order
     holiday_sales_behavior = holiday_sales_behavior.reindex(order)
     return holiday_sales_behavior
 
 
 def plotEffectOfHolidayOnSales(holiday_sales_behavior):
+    """
+    Plot the effect of holidays on sales based on the provided DataFrame.
+
+    Args:
+        holiday_sales_behavior (DataFrame): DataFrame containing average sales during holiday periods.
+        save_path (str, optional): File path to save the plot. Defaults to None.
+    """
     logger.info("Plotting the effect of holidays on sales.")
     if not holiday_sales_behavior.empty:
         holiday_sales_behavior.plot(kind='bar', figsize=(14, 7), colormap='plasma')
         
-        # Add labels and title
+      
         plt.title('Sales Behavior Before, During, and After Different Holidays')
         plt.ylabel('Average Sales')
         plt.xlabel('Holiday Period')
         plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for readability
         plt.tight_layout()
-        
-        # Show plot
+    
         plt.show()
     else:
         print("No holiday sales data to plot.")
@@ -141,6 +142,13 @@ def plotEffectOfHolidayOnSales(holiday_sales_behavior):
 
 
 def salesOverTime(merged_train_data_store):
+    """
+    Plot sales over time for specified timeframes.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing 'Sales' column and a DateTimeIndex.
+        timeframes (list): List of timeframes to resample by (e.g., ['D', 'W', 'M', 'Y']).
+    """
     logger.info("Plotting sales over time by different timeframes.")
     for column in ['D','W','M','Y']:
         over_time_sales = merged_train_data_store['Sales'].resample(column).sum()
@@ -161,6 +169,19 @@ def salesOverTime(merged_train_data_store):
 
 
 def salesSeasonalDecompose(merged_train_data_store):
+
+    """
+    Decompose sales data into trend, seasonal, and residual components.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing 'Sales' column with a DateTimeIndex.
+        freq (str): Resampling frequency ('M' for monthly, 'W' for weekly, etc.).
+        model (str): Decomposition model ('additive' or 'multiplicative').
+
+    Returns:
+        result (DecomposeResult): The decomposition result object.
+    """
+
     logger.info("Decomposing sales seasonality.")
     monthly_sales = merged_train_data_store['Sales'].resample('M').sum()
     result = seasonal_decompose(monthly_sales, model='additive')
@@ -172,6 +193,12 @@ def salesSeasonalDecompose(merged_train_data_store):
 
 
 def averageSalesDayOfWeek(merged_train_data_store):
+    """
+    Calculate and plot the average sales by day of the week.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing 'Sales' column with a DateTimeIndex.
+    """
     logger.info("Calculating average sales by day of the week.")
     merged_train_data_store['DayOfWeek'] = merged_train_data_store.index.dayofweek
     day_of_week_sales = merged_train_data_store.groupby('DayOfWeek')['Sales'].mean()
@@ -183,6 +210,12 @@ def averageSalesDayOfWeek(merged_train_data_store):
 
 
 def salesWithOpenAndClose(monthly_open_store):
+    """
+    Plot monthly average sales for stores when they are open versus not open.
+
+    Args:
+        monthly_open_store (DataFrame): DataFrame with average sales for 'Open' and 'Not Open' stores.
+    """
     logger.info("Plotting monthly sales: Open vs Not Open.")
     monthly_open_store[[0, 1]].plot(figsize=(15, 7))
     plt.title('Monthly Average Sales: Open vs Not Open')
@@ -193,6 +226,12 @@ def salesWithOpenAndClose(monthly_open_store):
 
 
 def customerBehaviorStoreOpen(train_data):
+    """
+    Analyze and plot the average number of customers for stores that are open by month.
+
+    Args:
+        train_data (DataFrame): DataFrame containing 'Open', 'Customers', and date-related information.
+    """
     logger.info("Analyzing customer behavior for stores that are open.")
     open_data = train_data[train_data['Open'] == 1]
     monthly_customers = open_data.groupby('Month')['Customers'].mean()
@@ -208,6 +247,12 @@ def customerBehaviorStoreOpen(train_data):
 
 
 def customerBehaviorStoreNotOpen(train_data):
+    """
+    Analyze and plot the average number of customers for stores that are not open by month.
+
+    Args:
+        train_data (DataFrame): DataFrame containing 'Open', 'Customers', and 'Date' columns.
+    """
     logger.info("Analyzing customer behavior for stores that are not open.")
     train_data['Date'] = pd.to_datetime(train_data['Date'])
 
@@ -229,6 +274,12 @@ def customerBehaviorStoreNotOpen(train_data):
     plt.show()
 
 def promotionEffectSales(monthly_promo_sales):
+    """
+    Plot the effect of promotions on monthly average sales.
+
+    Args:
+        monthly_promo_sales (DataFrame): DataFrame with monthly average sales for 'Promo' and 'No Promo'.
+    """
     logger.info("Plotting effect of promotions on monthly average sales.")
     monthly_promo_sales[[0, 1]].plot(figsize=(15, 7))
     plt.title('Monthly Average Sales: Promo vs No Promo')
@@ -238,6 +289,15 @@ def promotionEffectSales(monthly_promo_sales):
     plt.show()
 
 def storeTypePerformanceOverTime(merged_train_data_store):
+    """
+    Analyze and plot the monthly average sales by store type over time.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame with sales data and a store type column.
+    
+    Returns:
+        DataFrame: Monthly average sales for each store type.
+    """
     logger.info("Analyzing store type performance over time.")
     store_type_sales = merged_train_data_store.groupby([merged_train_data_store.index.to_period('M'), 'StoreType'])['Sales'].mean().unstack()
     store_type_sales.plot(figsize=(15, 7))
@@ -250,6 +310,15 @@ def storeTypePerformanceOverTime(merged_train_data_store):
 
 
 def storeTypeAndPromoOverTime(merged_store_type_prome):
+    """
+    Plot the performance of sales by store type and promotion status over time.
+
+    Args:
+        merged_store_type_prome (DataFrame): DataFrame containing sales data with store types and promotions.
+    
+    Returns:
+        None
+    """
     logger.info("Plotting performance by store type and promotion over time.")
     merged_store_type_prome.plot(figsize=(15, 7))
     plt.title('Monthly Average Sales by Store Type and Promotion')
@@ -261,6 +330,15 @@ def storeTypeAndPromoOverTime(merged_store_type_prome):
     plt.show()
 
 def numberOfCustomerWithSales(merged_train_data_store):
+    """
+    Plot the relationship between the number of customers and sales over time.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing customer and sales data.
+    
+    Returns:
+        None
+    """
     logger.info("Plotting the relationship between number of customers and sales over time.")
     plt.figure(figsize=(12, 8))
     scatter = plt.scatter(merged_train_data_store['Customers'], merged_train_data_store['Sales'], c=merged_train_data_store.index, cmap='viridis')
@@ -271,6 +349,15 @@ def numberOfCustomerWithSales(merged_train_data_store):
     plt.show()
 
 def corrSalesByDayOfWeekAndMonth(merged_train_data_store):
+    """
+    Create a heatmap for average sales by day of the week and month.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing sales data indexed by datetime.
+    
+    Returns:
+        None
+    """
     logger.info("Creating a heatmap for average sales by day of the week and month.")
     merged_train_data_store['DayOfWeek'] = merged_train_data_store.index.dayofweek
     merged_train_data_store['Month'] = merged_train_data_store.index.month
@@ -293,16 +380,13 @@ def corrSalesAndCustomers(merged_train_data_store):
         None. Displays the correlation heatmap.
     """
     logger.info("Calculating and plotting correlation between Sales and Customers.")
-    
-    # Check if required columns exist
+
     if 'Sales' not in merged_train_data_store.columns or 'Customers' not in merged_train_data_store.columns:
         logger.error("Columns 'Sales' and 'Customers' must be present in the dataset.")
         return
     
-    # Calculate correlation
     correlation_matrix = merged_train_data_store[['Sales', 'Customers']].corr()
-    
-    # Plot heatmap
+
     plt.figure(figsize=(6, 4))
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', cbar=True)
     plt.title('Correlation Between Sales and Customers')
@@ -310,6 +394,15 @@ def corrSalesAndCustomers(merged_train_data_store):
 
 
 def dailySalesGrowthRate(merged_train_data_store):
+    """
+    Plot the daily sales growth rate.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing sales data indexed by datetime.
+    
+    Returns:
+        None
+    """
     logger.info("Plotting daily sales growth rate.")
     merged_train_data_store['SalesGrowthRate'] = merged_train_data_store['Sales'].pct_change()
     plt.figure(figsize=(15, 7))
@@ -321,7 +414,15 @@ def dailySalesGrowthRate(merged_train_data_store):
 
 
 def categorize_month(month):
-    # logger.info(f"Categorizing month {month}.")
+    """
+    Categorize month into a season: Winter, Spring, Summer, Fall.
+    
+    Args:
+        month (int): Month number (1-12).
+    
+    Returns:
+        str: Season name corresponding to the month.
+    """
     if month in [12, 1, 2]:
         return 'Winter'
     elif month in [3, 4, 5]:
@@ -332,16 +433,22 @@ def categorize_month(month):
         return 'Fall'
     
 def customerBehaviorStoreOpenSeasonal(train_data):
+    """
+    Analyzes customer behavior by season for stores that are open.
+
+    Args:
+        train_data (DataFrame): DataFrame containing customer data with a 'Month' and 'Open' column.
+    
+    Returns:
+        None
+    """
     logger.info("Analyzing customer behavior by season for stores that are open.")
     train_data['Season'] = train_data['Month'].apply(categorize_month)
 
-    # Filter to include only open stores
     open_data = train_data[train_data['Open'] == 1]
 
-    # Group by season and calculate average number of customers
     seasonal_customers = open_data.groupby('Season')['Customers'].mean()
 
-    # Plot the results
     plt.figure(figsize=(12, 6))
     seasonal_customers.plot(kind='bar', color='b')
     plt.title('Average Number of Customers by Season')
@@ -352,15 +459,32 @@ def customerBehaviorStoreOpenSeasonal(train_data):
     plt.show()
 
 def numberStateHolidayAndNotHoliday(merged_train_data_store):
+    """
+    Plot the distribution of State Holidays in the dataset.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing the 'StateHoliday' column.
+
+    Returns:
+        None
+    """
     logger.info("Plotting distribution of State Holidays.")
     plt.figure(figsize=(8, 6))
     merged_train_data_store['StateHoliday'].value_counts().plot(kind='bar')
     plt.title('Distribution of state Holiday')
     plt.ylabel("Count")
-    # plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
     plt.show()
 
 def numberSchoolHolidayAndNotHoliday(merged_train_data_store):
+    """
+    Plot the distribution of School Holidays in the dataset.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing the 'SchoolHoliday' column.
+
+    Returns:
+        None
+    """
     logger.info("Plotting distribution of School Holidays.")
     plt.figure(figsize=(8, 6))
     merged_train_data_store['SchoolHoliday'].value_counts().plot(kind='bar')
@@ -372,12 +496,20 @@ def numberSchoolHolidayAndNotHoliday(merged_train_data_store):
 
 
 def averageSalesOnStateHoliday(merged_train_data_store):
+    """
+    Plot the average sales on State Holidays vs Non-Holidays.
+
+    Args:
+        merged_train_data_store (DataFrame): DataFrame containing the 'StateHoliday' and 'Sales' columns.
+
+    Returns:
+        None
+    """
     logger.info("Plotting average sales on State Holidays vs Non-Holidays.")
     holiday_effect = merged_train_data_store.groupby('StateHoliday')['Sales'].mean()
     holiday_effect.plot(kind='bar', figsize=(10, 6))
     plt.title('Average Sales: State Holiday vs Non-Holiday')
     plt.ylabel('Average Sales')
-    # plt.xticks([0, 1], ['Non-Holiday', 'Holiday'], rotation=0)
     plt.show()
 
 def averageSalesOnSchoolHoliday(merged_train_data_store):
@@ -402,15 +534,9 @@ def effectAssortmentTypeOnSales(monthly_effect_assortment_type):
 
 def effectCompetitionDistanceOnSales(merged_train_data_store):
     logger.info("Analyzing the effect of competition distance on sales.")
-    # Define the desired interval boundaries
     intervals = [0, 5000, 10000, 15000, 20000, 75860.0]
-    # Create a new column for the intervals
     merged_train_data_store['CompetitionDistanceInterval'] = pd.cut(merged_train_data_store['CompetitionDistance'], bins=intervals)
-
-    # Group by the interval and calculate mean sales
     interval_sales = merged_train_data_store.groupby('CompetitionDistanceInterval')['Sales'].mean()
-
-    # Plot the results
     plt.figure(figsize=(10, 6))
     interval_sales.plot(kind='bar')
     plt.title('Average Sales by Competition Distance Interval')
@@ -459,8 +585,6 @@ def storesOpenAllWeekdays(merged_train_data_store):
     plt.xticks(rotation=0)
     plt.legend(['Open All Weekdays', 'Not Open All Weekdays'], loc='upper right')
     plt.tight_layout()
-
-    # Show plot
     plt.show()
 
 
