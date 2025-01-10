@@ -66,3 +66,23 @@ def post_prediction_feature_importance(model, train_data):
     plt.xlabel("Random Forest Feature Importance")
     plt.title("Feature Importance in Sales Prediction")
     plt.show()
+
+        
+def post_prediction_confidence_interval(model, train_data):
+    # Confidence interval estimation
+
+    model_rf = model.named_steps['model']
+
+    predictions_per_tree = np.array([tree.predict(train_data)
+                                        for tree in model_rf.estimators_])
+
+    # Variance of predictions across trees
+    prediction_variance = np.var(predictions_per_tree, axis=0)
+
+    # Estimate the 95% confidence interval using variance
+    lower_bound = model.predict(train_data) - 1.9 * np.sqrt(prediction_variance)
+    upper_bound = model.predict(train_data) + 1.9 * np.sqrt(prediction_variance)
+
+    lower_upper_bound=pd.DataFrame({"Lower Bound":lower_bound, "Upper Bound":upper_bound})
+
+    return lower_upper_bound
