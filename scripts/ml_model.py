@@ -48,3 +48,21 @@ def train_ml_model(train_data):
    
     
     return pipeline,X_train,y_train
+
+
+def post_prediction_feature_importance(model, train_data):
+    """
+    Analyze feature importance and estimate confidence intervals for predictions.
+    """
+    # Extracting feature importance from the Random Forest model
+    model_rf = model.named_steps['model']
+
+    feature_importances = model_rf.feature_importances_
+
+    # Sorting feature importances for visualization
+    sorted_idx = np.argsort(feature_importances)[::-1]
+    plt.figure(figsize=(10, 8))
+    plt.barh(np.array(train_data.columns)[sorted_idx], feature_importances[sorted_idx], color='b')
+    plt.xlabel("Random Forest Feature Importance")
+    plt.title("Feature Importance in Sales Prediction")
+    plt.show()
