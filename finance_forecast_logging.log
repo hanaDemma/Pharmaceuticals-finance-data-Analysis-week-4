@@ -2110,3 +2110,5 @@
 2025-01-08 10:22:40,901 - INFO - Average weekend sales for stores open all weekdays: 2994.451143510152
 2025-01-08 10:22:40,904 - INFO - Average weekend sales for stores NOT open all weekdays: nan
 2025-01-08 10:22:41,288 - INFO - Completed storesOpenWeekdayOpenWeekends function
+2025-01-10 14:39:45,684 - INFO - Creating date features.
+2025-01-10 14:42:22,098 - INFO - Creating date features.
