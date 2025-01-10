@@ -37,6 +37,7 @@ def create_date_features(df):
     df['WeekOfYear'] = df['Date'].dt.isocalendar().week
     df['IsWeekend'] = df['DayOfWeek'].apply(lambda x: 1 if x >= 5 else 0)
     return df
+
 def month_period(day):
     if day <= 10:
         return 'beginning'
