@@ -86,3 +86,19 @@ def post_prediction_confidence_interval(model, train_data):
     lower_upper_bound=pd.DataFrame({"Lower Bound":lower_bound, "Upper Bound":upper_bound})
 
     return lower_upper_bound
+
+
+
+def save_model(model, path):
+    """
+    Save the trained model to a file with a timestamp.
+    :param model: The model to save.
+    :param path: Base path where the model will be saved.
+    """
+    # Get the current timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    model_path = f"{path}/model-{timestamp}.pkl"
+    
+    # Save the model
+    joblib.dump(model, model_path)
+    print(f"Model saved at {model_path}")
