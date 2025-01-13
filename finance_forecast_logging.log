@@ -2032,3 +2032,109 @@
 2025-01-03 15:48:07,411 - INFO - Average weekend sales for stores open all weekdays: 2994.451143510152
 2025-01-03 15:48:07,417 - INFO - Average weekend sales for stores NOT open all weekdays: nan
 2025-01-03 15:48:07,806 - INFO - Completed storesOpenWeekdayOpenWeekends function
+2025-01-08 10:17:41,123 - INFO - Finding missing values in DataFrame...
+2025-01-08 10:17:41,611 - INFO - Finding missing values in DataFrame...
+2025-01-08 10:17:41,744 - INFO - Finding missing values in DataFrame...
+2025-01-08 10:17:42,066 - INFO - Replacing missing values...
+2025-01-08 10:17:42,084 - INFO - Replacing missing values in column 'Id' with mean: 41088
+2025-01-08 10:17:42,093 - INFO - Replacing missing values in column 'Store' with mean: 1115
+2025-01-08 10:17:42,106 - INFO - Replacing missing values in column 'DayOfWeek' with mean: 7
+2025-01-08 10:17:42,126 - INFO - Replacing missing values in column 'Open' with mean: 1.0
+2025-01-08 10:17:42,148 - INFO - Replacing missing values in column 'Promo' with mean: 1
+2025-01-08 10:17:42,162 - INFO - Replacing missing values in column 'SchoolHoliday' with mean: 1
+2025-01-08 10:17:42,186 - INFO - Replacing missing values in column 'Date' with mode: 2015-08-01
+2025-01-08 10:17:42,213 - INFO - Replacing missing values in column 'StateHoliday' with mode: 0
+2025-01-08 10:17:42,272 - INFO - Finding missing values in DataFrame...
+2025-01-08 10:17:42,397 - INFO - Replacing missing values...
+2025-01-08 10:17:42,411 - INFO - Replacing missing values in column 'Store' with mean: 1115
+2025-01-08 10:17:42,427 - INFO - Replacing missing values in column 'CompetitionDistance' with mean: 75860.0
+2025-01-08 10:17:42,442 - INFO - Replacing missing values in column 'CompetitionOpenSinceMonth' with mean: 12.0
+2025-01-08 10:17:42,456 - INFO - Replacing missing values in column 'CompetitionOpenSinceYear' with mean: 2015.0
+2025-01-08 10:17:42,475 - INFO - Replacing missing values in column 'Promo2' with mean: 1
+2025-01-08 10:17:42,486 - INFO - Replacing missing values in column 'Promo2SinceWeek' with mean: 50.0
+2025-01-08 10:17:42,503 - INFO - Replacing missing values in column 'Promo2SinceYear' with mean: 2015.0
+2025-01-08 10:17:42,511 - INFO - Replacing missing values in column 'StoreType' with mode: a
+2025-01-08 10:17:42,524 - INFO - Replacing missing values in column 'Assortment' with mode: a
+2025-01-08 10:17:42,534 - INFO - Replacing missing values in column 'PromoInterval' with mode: Jan,Apr,Jul,Oct
+2025-01-08 10:17:42,574 - INFO - Finding missing values in DataFrame...
+2025-01-08 10:17:42,920 - INFO - Calculating outlier summary for numerical columns...
+2025-01-08 10:17:43,407 - INFO - Creating box plots for outlier detection...
+2025-01-08 10:18:02,767 - INFO - Calculating outlier summary for numerical columns...
+2025-01-08 10:18:02,863 - INFO - Calculating outlier summary for numerical columns...
+2025-01-08 10:18:03,016 - INFO - Creating box plots for outlier detection...
+2025-01-08 10:18:04,167 - INFO - Removing outliers using winsorization...
+2025-01-08 10:18:04,266 - INFO - Winsorizing column 'Sales' with lower bound: -2466.5 and upper bound: 14049.5
+2025-01-08 10:18:04,534 - INFO - Winsorizing column 'Customers' with lower bound: -243.0 and upper bound: 1485.0
+2025-01-08 10:18:04,622 - INFO - Removing outliers using winsorization...
+2025-01-08 10:18:04,636 - INFO - Winsorizing column 'CompetitionDistance' with lower bound: -8557.5 and upper bound: 16182.5
+2025-01-08 10:18:04,656 - INFO - Winsorizing column 'CompetitionOpenSinceYear' with lower bound: 1997.5 and upper bound: 2025.5
+2025-01-08 10:18:04,696 - INFO - Calculating outlier summary for numerical columns...
+2025-01-08 10:18:05,053 - INFO - Calculating outlier summary for numerical columns...
+2025-01-08 10:18:05,153 - INFO - Calculating outlier summary for numerical columns...
+2025-01-08 10:18:05,220 - INFO - Creating box plots for outlier detection...
+2025-01-08 10:18:20,459 - INFO - Creating box plots for outlier detection...
+2025-01-08 10:18:38,628 - INFO - Creating date features.
+2025-01-08 10:18:41,877 - INFO - Comparing Promo distribution between train and test datasets.
+2025-01-08 10:18:41,990 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-08 10:18:42,015 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-08 10:18:42,119 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-08 10:18:42,145 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-08 10:18:42,527 - INFO - Categorizing each day based on holiday type.
+2025-01-08 10:20:52,901 - INFO - Calculating average sales during different periods.
+2025-01-08 10:20:53,676 - INFO - Plotting the effect of holidays on sales.
+2025-01-08 10:20:57,566 - INFO - Plotting sales over time by different timeframes.
+2025-01-08 10:21:04,244 - INFO - Decomposing sales seasonality.
+2025-01-08 10:21:07,409 - INFO - Calculating average sales by day of the week.
+2025-01-08 10:21:09,332 - INFO - Plotting effect of promotions on monthly average sales.
+2025-01-08 10:21:10,375 - INFO - Analyzing store type performance over time.
+2025-01-08 10:21:12,457 - INFO - Plotting performance by store type and promotion over time.
+2025-01-08 10:21:13,637 - INFO - Plotting the relationship between number of customers and sales over time.
+2025-01-08 10:22:17,224 - INFO - Analyzing customer behavior...
+2025-01-08 10:22:24,858 - INFO - Customer behavior analysis completed.
+2025-01-08 10:22:24,895 - INFO - Creating a heatmap for average sales by day of the week and month.
+2025-01-08 10:22:26,236 - INFO - Plotting daily sales growth rate.
+2025-01-08 10:22:27,570 - INFO - Plotting monthly sales: Open vs Not Open.
+2025-01-08 10:22:28,903 - INFO - Analyzing customer behavior for stores that are open.
+2025-01-08 10:22:30,489 - INFO - Analyzing customer behavior for stores that are not open.
+2025-01-08 10:22:31,309 - INFO - Analyzing customer behavior by season for stores that are open.
+2025-01-08 10:22:33,464 - INFO - Plotting distribution of State Holidays.
+2025-01-08 10:22:34,090 - INFO - Plotting distribution of School Holidays.
+2025-01-08 10:22:34,618 - INFO - Plotting average sales on State Holidays vs Non-Holidays.
+2025-01-08 10:22:35,265 - INFO - Plotting average sales on School Holidays vs Non-Holidays.
+2025-01-08 10:22:36,292 - INFO - Analyzing the effect of assortment type on monthly average sales.
+2025-01-08 10:22:37,056 - INFO - Analyzing the effect of competition distance on sales.
+2025-01-08 10:22:37,541 - INFO - Analyzing stores open on all weekdays.
+2025-01-08 10:22:39,497 - INFO - Starting storesOpenWeekdayOpenWeekends function
+2025-01-08 10:22:39,934 - INFO - Filtered open stores: 844392 entries
+2025-01-08 10:22:40,409 - INFO - Number of stores open all weekdays: 1115
+2025-01-08 10:22:40,901 - INFO - Average weekend sales for stores open all weekdays: 2994.451143510152
+2025-01-08 10:22:40,904 - INFO - Average weekend sales for stores NOT open all weekdays: nan
+2025-01-08 10:22:41,288 - INFO - Completed storesOpenWeekdayOpenWeekends function
+2025-01-10 14:39:45,684 - INFO - Creating date features.
+2025-01-10 14:42:22,098 - INFO - Creating date features.
+2025-01-10 15:19:50,135 - INFO - Creating date features.
+2025-01-10 15:19:50,617 - INFO - Creating date features.
+2025-01-10 15:20:09,877 - INFO - Loading data from file...
+2025-01-10 15:20:23,886 - INFO - Loading data from file...
+2025-01-10 15:20:28,618 - INFO - Loading data from file...
+2025-01-10 15:21:04,667 - INFO - Creating date features.
+2025-01-10 15:21:22,050 - INFO - Creating date features.
+2025-01-10 15:23:57,101 - INFO - Creating date features.
+2025-01-10 15:23:57,636 - INFO - Creating date features.
+2025-01-10 15:44:21,964 - INFO - Creating date features.
+2025-01-10 15:44:22,462 - INFO - Creating date features.
+2025-01-10 16:25:20,545 - INFO - Creating date features.
+2025-01-10 16:25:21,532 - INFO - Creating date features.
+2025-01-10 16:39:07,366 - INFO - Creating date features.
+2025-01-10 16:39:08,853 - INFO - Creating date features.
+2025-01-13 08:43:01,475 - INFO - Creating date features.
+2025-01-13 08:43:03,142 - INFO - Creating date features.
+2025-01-13 09:10:02,060 - INFO - Loading data from file...
+2025-01-13 09:11:29,991 - INFO - Loading data from file...
+2025-01-13 09:13:43,464 - INFO - Creating date features.
+2025-01-13 09:13:44,739 - INFO - Creating date features.
+2025-01-13 10:01:46,238 - INFO - Creating date features.
+2025-01-13 10:01:47,469 - INFO - Creating date features.
+2025-01-13 11:44:41,091 - INFO - Creating date features.
+2025-01-13 11:44:41,809 - INFO - Creating date features.
+2025-01-13 15:36:08,715 - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
