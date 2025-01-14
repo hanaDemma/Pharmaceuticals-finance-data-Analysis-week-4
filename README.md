@@ -11,8 +11,10 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
 ├── .github/
 ├── .week4/
 ├── . Data/
+├── . flask.api
 ├── . notebooks/
 │   ├── exploratory_analysis.ipynb 
+    ├── sales_prediction.ipynb 
 │   └── README.md 
 ├── . scripts/ 
 ├── . src/
@@ -30,15 +32,37 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
  ## Objective
     - Analyze how key factors, such as promotions, new store openings, and other operational measures, influence customer purchasing behavior.
 ## Tasks
-- Set up a GitHub repository with a dedicated task-1 branch.
+- Set up a GitHub repository with a dedicated feature/task-1 branch.
 - Perform Exploratory Data Analysis (EDA) using Jupyter Notebook (exploratory_analysis.ipynb).
-- Implement logging with Python's logging library to ensure traceability and reproducibility of the analysis steps.
 - Commit progress at least three times daily, with descriptive and clear commit messages.
+
+ ## Logging
+ ## Objective
+ - Implement logging with Python's logging library to ensure traceability and reproducibility of the analysis steps.
+
+## Prediction of Store Sales
+## Objective: 
+- Build machine learning models to predict daily store sales six weeks ahead.
+## Tasks:
+- Set up a GitHub repository with a dedicated feature/task-2 branch.
+- Preprocess the data and extract features.
+- Build regression models using tree-based algorithms and pipelines.
+- Experiment with deep learning models (LSTM) for time series forecasting.
+
+## Model Serving API Call
+## Objective: 
+- To create REST API to serve the trained machine-learning models for real-time predictions.
+## Tasks:
+- Set up a GitHub repository with a dedicated task-3 branch.
+- Select a suitable framework for building REST APIs
+- Load the model
+- Define API endpoints and Handle requests
+- Return predictions and delpl0ye to web server
 
 ## Dependencies
 This project relies on the following Python libraries:
 
-- pandas: Data manipulation and analysis.
+- pandas: Data manipulation and analysis
 - seaborn: Data visualization.
 - scikit-learn: Machine learning tools.
 - matplotlib: Plotting and visualization.
