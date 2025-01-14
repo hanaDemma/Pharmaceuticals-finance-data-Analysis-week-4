@@ -30,7 +30,7 @@ PHARMACEUTICALS-FINANCE-DATA-ANALYSIS-WORKFLOW/
 
  ## Exploration of Customer Purchasing Behavior
  ## Objective
-    - Analyze how key factors, such as promotions, new store openings, and other operational measures, influence customer purchasing behavior.
+ - Analyze how key factors, such as promotions, new store openings, and other operational measures, influence customer purchasing behavior.
 ## Tasks
 - Set up a GitHub repository with a dedicated feature/task-1 branch.
 - Perform Exploratory Data Analysis (EDA) using Jupyter Notebook (exploratory_analysis.ipynb).
